@@ -38,6 +38,11 @@ namespace UnityEngine.EventSystems
 
         public abstract void Process();
 
+        /// <summary>
+        /// 查找第一个Raycast再看看具体有什么用
+        /// </summary>
+        /// <param name="candidates"></param>
+        /// <returns></returns>
         protected static RaycastResult FindFirstRaycast(List<RaycastResult> candidates)
         {
             for (var i = 0; i < candidates.Count; ++i)
@@ -50,6 +55,12 @@ namespace UnityEngine.EventSystems
             return new RaycastResult();
         }
 
+        /// <summary>
+        /// 确定移动方向
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         protected static MoveDirection DetermineMoveDirection(float x, float y)
         {
             return DetermineMoveDirection(x, y, 0.6f);
@@ -57,7 +68,7 @@ namespace UnityEngine.EventSystems
 
         protected static MoveDirection DetermineMoveDirection(float x, float y, float deadZone)
         {
-            // if vector is too small... just return
+            // if vector is too small... just return 如果移动距离很短 视为 没有移动方向None
             if (new Vector2(x, y).sqrMagnitude < deadZone * deadZone)
                 return MoveDirection.None;
 
@@ -75,6 +86,12 @@ namespace UnityEngine.EventSystems
             }
         }
 
+        /// <summary>
+        /// 查找两个物体公同的根物体
+        /// </summary>
+        /// <param name="g1"></param>
+        /// <param name="g2"></param>
+        /// <returns></returns>
         protected static GameObject FindCommonRoot(GameObject g1, GameObject g2)
         {
             if (g1 == null || g2 == null)
@@ -94,7 +111,7 @@ namespace UnityEngine.EventSystems
             }
             return null;
         }
-
+        //走上树，直到最后一个输入的常见根源，当前输入的是foung
         // walk up the tree till a common root between the last entered and the current entered is foung
         // send exit events up to (but not inluding) the common root. Then send enter events up to
         // (but not including the common root).
@@ -102,7 +119,7 @@ namespace UnityEngine.EventSystems
         {
             // if we have no target / pointerEnter has been deleted
             // just send exit events to anything we are tracking
-            // then exit
+            // then exit //如果没有进入新的目标物体或者当前指针进入物体也为null则执行当前pointerEventData数据中所有hovered 退出方法并清空
             if (newEnterTarget == null || currentPointerData.pointerEnter == null)
             {
                 for (var i = 0; i < currentPointerData.hovered.Count; ++i)
@@ -117,13 +134,13 @@ namespace UnityEngine.EventSystems
                 }
             }
 
-            // if we have not changed hover target
+            // if we have not changed hover target 如果我们没有改变悬停目标 什么都不做
             if (currentPointerData.pointerEnter == newEnterTarget && newEnterTarget)
                 return;
 
             GameObject commonRoot = FindCommonRoot(currentPointerData.pointerEnter, newEnterTarget);
 
-            // and we already an entered object from last time
+            // and we already an entered object from last time 到这里就是进入了新目标中 newEnterTarget执行之前记录的退出
             if (currentPointerData.pointerEnter != null)
             {
                 // send exit handler call to all elements in the chain
@@ -132,10 +149,10 @@ namespace UnityEngine.EventSystems
 
                 while (t != null)
                 {
-                    // if we reach the common root break out!
+                    // if we reach the common root break out! 如果我们达到共同的根break！？？？？？？？？？？？？？？？？？
                     if (commonRoot != null && commonRoot.transform == t)
                         break;
-
+                    //?????????????
                     ExecuteEvents.Execute(t.gameObject, currentPointerData, ExecuteEvents.pointerExitHandler);
                     currentPointerData.hovered.Remove(t.gameObject);
                     t = t.parent;

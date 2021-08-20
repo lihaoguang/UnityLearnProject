@@ -2,7 +2,7 @@ EventSystem
 firstSelectedGameObject：这个值可以在面板设置，如果你需要游戏在启动的时候自动选中某个对象，需要鼠标的那一下点击。
 //主要负责处理输入、射线投射以及发送事件,。一个场景中只能有一个EventSystem组件，并且需要BaseInputModule类型组件的协助才能工作。
 private m_SystemInputModules：
-//OnEnable and OnDisable 时更新eventSystem物体下所有InputModule 初始化 inputModules
+//在inputModule组件里的OnEnable and OnDisable 时更新eventSystem物体下所有InputModule 初始化 inputModules
 //Update函数里调用TickModules函数遍历inputModules调用InputModule.UpdateModule函数更新
 //之后继续更新更新inputModules同时只会支持一种inputModules如果有多种在其它不支持的情况下会切换其它inputModules,调用ChangeEventModule函数
 //继续检索有没有合适的inputModules 如果没有变化并且有currentInputModuls执行m_CurrentInputModule.Process函数

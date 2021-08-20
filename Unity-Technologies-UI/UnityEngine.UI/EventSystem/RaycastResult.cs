@@ -4,15 +4,15 @@ namespace UnityEngine.EventSystems
     {
         private GameObject m_GameObject; // Game object hit by the raycast
 
-        public GameObject gameObject
+        public GameObject gameObject//射线击中的物体
         {
             get { return m_GameObject; }
             set { m_GameObject = value; }
         }
 
-        public BaseRaycaster module; // Event system that hit this object
-        public float distance; // The distance from the origin this hit was.
-        public float index; // The index this element is in the raycastList (used for sorting)
+        public BaseRaycaster module; // Event system that hit this object //命中此对象的事件系统
+        public float distance; // The distance from the origin this hit was. //发射命中之间的距离
+        public float index; // The index this element is in the raycastList (used for sorting)//层级排序
         public int depth;
         public int sortingLayer;
         public int sortingOrder;
