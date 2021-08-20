@@ -1,0 +1,21 @@
+EventSystem  
+firstSelectedGameObject：这个值可以在面板设置，如果你需要游戏在启动的时候自动选中某个对象，需要鼠标的那一下点击。
+//主要负责处理输入、射线投射以及发送事件,。一个场景中只能有一个EventSystem组件，并且需要BaseInputModule类型组件的协助才能工作。
+private m_SystemInputModules：
+//OnEnable and OnDisable 时更新eventSystem物体下所有InputModule 初始化 inputModules
+//Update函数里调用TickModules函数遍历inputModules调用InputModule.UpdateModule函数更新
+//之后继续更新更新inputModules同时只会支持一种inputModules如果有多种在其它不支持的情况下会切换其它inputModules,调用ChangeEventModule函数
+//继续检索有没有合适的inputModules 如果没有变化并且有currentInputModuls执行m_CurrentInputModule.Process函数
+BaseInputModule是一个基类模块，负责发送输入事件（点击、拖拽、选中等）到具体对象。
+EventSystem下的所有输入模块都必须继承自BaseInputModule组件。StandaloneInputModule和TouchInputModule组件是系统提供的
+标准输入模块和触摸输入模块，我们可以通过继承BaseInputModule实现自己的输入模块
+EventSystem负责管理，BaseInputModule负责输入，BaseRaycaster负责确定目标对象，
+目标对象负责接收事件并处理，然后一个完整的事件系统就有了。
+private m_CurrentInputModule:
+public static EventSystem current:
+[serializeField]
+ GameObject m_FirstSelected:
+[serializeField] 
+bool m_sendNavigationEvents
+[serializeField]
+int m_DragThreshold = 5;
