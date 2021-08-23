@@ -86,7 +86,7 @@ public class Item
     public enum ItemQuality
     {
         Common,
-        Unmmon,
+        Uncommon,
         Rare,
         Epic,
         Legendary,

@@ -73,6 +73,10 @@ public class Equipment : Item
         /// </summary>
         Shoulder,
         /// <summary>
+        /// 胸
+        /// </summary>
+        Chest,
+        /// <summary>
         /// 腰带
         /// </summary>
         Belt,

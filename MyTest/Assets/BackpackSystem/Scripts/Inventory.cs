@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
 
     public bool StoreItem(int id)
     {
+        
         return StoreItem(InventoryManager.Instance.GetItemById(id));
     }
 

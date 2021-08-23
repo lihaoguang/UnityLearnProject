@@ -44,19 +44,19 @@ public class InventoryManager : MonoBehaviour
     {
         itemList = new List<Item>();
         string itemJson = LoadFile("Items.json");
-        Debug.Log(itemJson);
+        Debug.Log(itemJson.Length);
         JsonData jsonData = JsonMapper.ToObject(itemJson);
         Debug.Log(jsonData.Count);
-       
+
         // Debug.Log(jsonData["type"]);
         foreach (JsonData jsonItem in jsonData)
         {
             int id = int.Parse(jsonItem["id"].ToString());
             string name = jsonItem["name"].ToString();
-            Item.ItemType type = (Item.ItemType) Enum.Parse(typeof(Item.ItemType), jsonItem["type"].ToString());
+            Item.ItemType type = (Item.ItemType)Enum.Parse(typeof(Item.ItemType), jsonItem["type"].ToString());
             Item.ItemQuality quality = (Item.ItemQuality)Enum.Parse(typeof(Item.ItemQuality), jsonItem["quality"].ToString());
             string description = jsonItem["description"].ToString();
-            int capacity= int.Parse(jsonItem["capacity"].ToString());
+            int capacity = int.Parse(jsonItem["capacity"].ToString());
             int buyPrice = int.Parse(jsonItem["buyPrice"].ToString());
             int sellPrice = int.Parse(jsonItem["sellPrice"].ToString());
             string sprite = jsonItem["sprite"].ToString();
@@ -69,24 +69,34 @@ public class InventoryManager : MonoBehaviour
                     itemTemp = new Consumable(id, name, type, quality, description, capacity, buyPrice, sellPrice, hp, mp, sprite);
                     break;
                 case Item.ItemType.Equipment:
+                    int strength = int.Parse(jsonItem["strength"].ToString());
+                    int intellect = int.Parse(jsonItem["intellect"].ToString());
+                    int agility = int.Parse(jsonItem["agility"].ToString());
+                    int stamina = int.Parse(jsonItem["stamina"].ToString());
+                    Equipment.EquipmentType equipType = (Equipment.EquipmentType)Enum.Parse(typeof(Equipment.EquipmentType), jsonItem["equipType"].ToString());
+                    itemTemp = new Equipment(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, strength, intellect, agility, stamina, equipType);
                     break;
                 case Item.ItemType.Weapon:
+                    int damage = int.Parse(jsonItem["damage"].ToString());
+                    Weapon.WeaponType weaponType = (Weapon.WeaponType)Enum.Parse(typeof(Weapon.WeaponType), jsonItem["weaponType"].ToString());
+                    itemTemp = new Weapon(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite, damage, weaponType);
                     break;
                 case Item.ItemType.Material:
+                    itemTemp = new InventorySystem.Material(id, name, type, quality, description, capacity, buyPrice, sellPrice, sprite);
                     break;
                 default:
                     break;
             }
             itemList.Add(itemTemp);
             Debug.Log(itemTemp);
-          //  Debug.Log(id + name + type + quality + description + capacity +"-"+ buyPrice + "-" + sellPrice + "-" + hp + "-" + mp + "-" + sprite);
+            //  Debug.Log(id + name + type + quality + description + capacity +"-"+ buyPrice + "-" + sellPrice + "-" + hp + "-" + mp + "-" + sprite);
 
         }
     }
 
     public Item GetItemById(int id)
     {
-      return itemList.Find(i => i.ID == id);
+        return itemList.Find(i => i.ID == id);
     }
 
 
