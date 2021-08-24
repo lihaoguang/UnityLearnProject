@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ResourcesLoader
 {
-    public const string PREFAB_UI = "Prefabs/UI/";
+    public const string PREFAB_UI_Item = "Prefabs/UI/Item";
     /// <summary>
     /// TODO add Func<T>  How do get TResult from the loaded resources.
     /// heavy load??
@@ -14,11 +14,15 @@ public class ResourcesLoader
     /// <param name="path"></param>
     /// <param name="parentTF"></param>
     /// <returns></returns>
-    public static TResult Load<T, TResult>(string path, Transform parentTF) where T : UnityEngine.Object where TResult : MonoBehaviour
+    public static Transform Load(string path, Transform parentTF)
     {
-        T loadObjcet = Resources.Load<T>(path);
-        if (loadObjcet.GetType().Equals(typeof(GameObject)))
-            return Object.Instantiate(loadObjcet as GameObject, parentTF).GetComponentInChildren<TResult>();
-        return loadObjcet as TResult;
+        Transform result = Load<Transform>(path);
+        return Object.Instantiate(result, parentTF);
     }
+
+    public static T Load<T>(string path) where T : UnityEngine.Object
+    {
+        return Resources.Load<T>(path);
+    }
+
 }

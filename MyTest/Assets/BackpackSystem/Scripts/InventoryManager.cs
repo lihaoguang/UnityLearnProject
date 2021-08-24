@@ -43,7 +43,7 @@ public class InventoryManager : MonoBehaviour
     private void ParseItemJson()
     {
         itemList = new List<Item>();
-        string itemJson = LoadFile("Items.json");
+        string itemJson = LoadJsonText("Items.json");
         Debug.Log(itemJson.Length);
         JsonData jsonData = JsonMapper.ToObject(itemJson);
         Debug.Log(jsonData.Count);
@@ -60,6 +60,7 @@ public class InventoryManager : MonoBehaviour
             int buyPrice = int.Parse(jsonItem["buyPrice"].ToString());
             int sellPrice = int.Parse(jsonItem["sellPrice"].ToString());
             string sprite = jsonItem["sprite"].ToString();
+            Debug.Log(sprite);
             Item itemTemp = null;
             switch (type)
             {
@@ -88,7 +89,6 @@ public class InventoryManager : MonoBehaviour
                     break;
             }
             itemList.Add(itemTemp);
-            Debug.Log(itemTemp);
             //  Debug.Log(id + name + type + quality + description + capacity +"-"+ buyPrice + "-" + sellPrice + "-" + hp + "-" + mp + "-" + sprite);
 
         }
@@ -105,7 +105,7 @@ public class InventoryManager : MonoBehaviour
     /// </summary>
     /// <param name="fileName"></param>
     /// <returns></returns>
-    public string LoadFile(string fileName)
+    public string LoadJsonText(string fileName)
     {
         string url;
         string result = null;
@@ -124,27 +124,27 @@ public class InventoryManager : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Get(url))
         {
             UnityWebRequestAsyncOperation unityWebRequestAsyncOperation = www.SendWebRequest();
-            while (true)
-            {
-                if (www.isNetworkError)
-                {
-                    Debug.Log(www.error);
-                    return null;
-                }
-                else
-                {
-                    result = www.downloadHandler.text;
-                    return result;
-                }
-            }
             //while (true)
             //{
-            //    if (unityWebRequestAsyncOperation.isDone)
+            //    if (www.isNetworkError)
             //    {
-            //        Debug.Log(unityWebRequestAsyncOperation.progress);
-            //        return unityWebRequestAsyncOperation.webRequest.downloadHandler.text;
+            //        Debug.Log(www.error);
+            //        return null;
+            //    }
+            //    else
+            //    {
+            //        result = www.downloadHandler.text;
+            //        return result;
             //    }
             //}
+            while (true)
+            {
+                if (unityWebRequestAsyncOperation.isDone)
+                {
+                    Debug.Log(unityWebRequestAsyncOperation.progress);
+                    return unityWebRequestAsyncOperation.webRequest.downloadHandler.text;
+                }
+            }
         }
     }
 }

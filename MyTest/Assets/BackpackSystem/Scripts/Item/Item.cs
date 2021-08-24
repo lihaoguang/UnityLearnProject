@@ -65,7 +65,7 @@ public class Item
         this.Capacity = capacity;
         this.BuyPrice = buyPrice;
         this.SellPrice = sellPrice;
-        this.Sprite = Sprite;
+        this.Sprite = sprite;
     }
 
 

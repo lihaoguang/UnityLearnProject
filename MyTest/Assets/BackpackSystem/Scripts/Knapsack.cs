@@ -4,5 +4,13 @@ using UnityEngine;
 
 public class Knapsack : Inventory
 {
-
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            int id = Random.Range(2, 4);
+            Debug.Log(id);
+            StoreItem(id);
+        }
+    }
 }

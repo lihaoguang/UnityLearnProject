@@ -9,9 +9,11 @@ public class Slot : MonoBehaviour
     /// <summary>
     /// Get the ItemUI in the current slot
     /// </summary>
-    public ItemUI ItemUI => m_itemUI = (m_itemUI ?? GetComponentInChildren<ItemUI>())?? ResourcesLoader.Load<GameObject,ItemUI>(ResourcesLoader.PREFAB_UI+"Item", transform);
+    public ItemUI ItemUI => m_itemUI = (m_itemUI ?? GetComponentInChildren<ItemUI>()) ??
+        ResourcesLoader.Load(ResourcesLoader.PREFAB_UI_Item, transform).GetComponentInChildren<ItemUI>();
 
-    public Item.ItemType ItemType => ItemUI.Item.Type;
+    public Item.ItemType ItemType => m_itemUI == null ? (Item.ItemType)(-1) : ItemUI.Item.Type;
+
 
     /// <summary>
     /// Whether the current slot is fill
@@ -31,7 +33,7 @@ public class Slot : MonoBehaviour
     private uint JudgeBeyondCapacityCount(uint addAmount)
     {
         uint count = ItemUI.Amount + addAmount;
-        uint outnumber =(uint)(count-ItemUI.Item.Capacity);
+        uint outnumber = (uint)(count - ItemUI.Item.Capacity);
         return (uint)Mathf.Clamp(outnumber, 0, uint.MaxValue);
     }
 }
