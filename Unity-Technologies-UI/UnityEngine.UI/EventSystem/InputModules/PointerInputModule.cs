@@ -14,6 +14,13 @@ namespace UnityEngine.EventSystems
 
         protected Dictionary<int, PointerEventData> m_PointerData = new Dictionary<int, PointerEventData>();
 
+        /// <summary>
+        /// 获得pointerData create 无则创建返回true有则返回false
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="data"></param>
+        /// <param name="create"></param>
+        /// <returns></returns>
         protected bool GetPointerData(int id, out PointerEventData data, bool create)
         {
             if (!m_PointerData.TryGetValue(id, out data) && create)
@@ -33,6 +40,13 @@ namespace UnityEngine.EventSystems
             m_PointerData.Remove(data.pointerId);
         }
 
+        /// <summary>
+        /// touch 时通过Process调用,获得PointerEventData
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="pressed"></param>
+        /// <param name="released"></param>
+        /// <returns></returns>
         protected PointerEventData GetTouchPointerEventData(Touch input, out bool pressed, out bool released)
         {
             PointerEventData pointerData;
@@ -72,6 +86,11 @@ namespace UnityEngine.EventSystems
             @to.pointerEnter = @from.pointerEnter;
         }
 
+        /// <summary>
+        /// 鼠标状态
+        /// </summary>
+        /// <param name="buttonId"></param>
+        /// <returns></returns>
         protected static PointerEventData.FramePressState StateForMouseButton(int buttonId)
         {
             var pressed = Input.GetMouseButtonDown(buttonId);

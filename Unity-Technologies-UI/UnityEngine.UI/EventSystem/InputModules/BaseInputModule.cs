@@ -111,7 +111,7 @@ namespace UnityEngine.EventSystems
             }
             return null;
         }
-        //走上树，直到最后一个输入的常见根源，当前输入的是foung
+        //遍历节点，直到最后一个输入的公共根，当前输入的是foung
         // walk up the tree till a common root between the last entered and the current entered is foung
         // send exit events up to (but not inluding) the common root. Then send enter events up to
         // (but not including the common root).
@@ -119,8 +119,8 @@ namespace UnityEngine.EventSystems
         {
             // if we have no target / pointerEnter has been deleted
             // just send exit events to anything we are tracking
-            // then exit //如果没有进入新的目标物体或者当前指针进入物体也为null则执行当前pointerEventData数据中所有hovered 退出方法并清空
-            if (newEnterTarget == null || currentPointerData.pointerEnter == null)
+            // then exit //如果没有进入新的目标物体或者当前指针进入为null则执行当前pointerEventData数据中所有hovered 退出方法并清空
+            if (newEnterTarget == null || currentPointerData.pointerEnter == null)//从空到空returen 从有到空return 从空到有， 从有到有不执行
             {
                 for (var i = 0; i < currentPointerData.hovered.Count; ++i)
                     ExecuteEvents.Execute(currentPointerData.hovered[i], currentPointerData, ExecuteEvents.pointerExitHandler);
@@ -137,10 +137,10 @@ namespace UnityEngine.EventSystems
             // if we have not changed hover target 如果我们没有改变悬停目标 什么都不做
             if (currentPointerData.pointerEnter == newEnterTarget && newEnterTarget)
                 return;
-
+            //currentPointerEnter=null  newEnterTarget != null =>commonRoot = null else exist
             GameObject commonRoot = FindCommonRoot(currentPointerData.pointerEnter, newEnterTarget);
 
-            // and we already an entered object from last time 到这里就是进入了新目标中 newEnterTarget执行之前记录的退出
+            // and we already an entered object from last time 从物体到另一个物体上
             if (currentPointerData.pointerEnter != null)
             {
                 // send exit handler call to all elements in the chain
@@ -149,17 +149,16 @@ namespace UnityEngine.EventSystems
 
                 while (t != null)
                 {
-                    // if we reach the common root break out! 如果我们达到共同的根break！？？？？？？？？？？？？？？？？？
+                    // if we reach the common root break out! 如果从一个目标移动到新目标则执行原来目标的退出方法，执行同父物体下与退出物体之间，的父物体中退出方法
                     if (commonRoot != null && commonRoot.transform == t)
                         break;
-                    //?????????????
                     ExecuteEvents.Execute(t.gameObject, currentPointerData, ExecuteEvents.pointerExitHandler);
                     currentPointerData.hovered.Remove(t.gameObject);
                     t = t.parent;
                 }
             }
 
-            // now issue the enter call up to but not including the common root
+            // now issue the enter call up to but not including the common root如果从一个目标移动到新目标则enter，执行同父物体下与进入物体之间，的父物体中进入方法
             currentPointerData.pointerEnter = newEnterTarget;
             if (newEnterTarget != null)
             {
@@ -200,7 +199,7 @@ namespace UnityEngine.EventSystems
         }
 
         /// <summary>
-        /// 是否处于交互中
+        /// Input模块是否激活
         /// </summary>
         /// <returns></returns>
         public virtual bool ShouldActivateModule()

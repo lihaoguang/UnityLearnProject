@@ -130,7 +130,7 @@ namespace UnityEngine.EventSystems
         }
 
        /// <summary>
-       /// 是否处于交互中
+       /// 检查模块激活
        /// </summary>
        /// <returns></returns>
         public override bool ShouldActivateModule()
@@ -145,7 +145,6 @@ namespace UnityEngine.EventSystems
             shouldActivate |= !Mathf.Approximately(Input.GetAxisRaw(m_VerticalAxis), 0.0f);
             shouldActivate |= (m_MousePosition - m_LastMousePosition).sqrMagnitude > 0.0f;
             shouldActivate |= Input.GetMouseButtonDown(0);
-
 
             for (int i = 0; i < Input.touchCount; ++i)
             {
