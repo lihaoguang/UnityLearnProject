@@ -8,18 +8,18 @@ namespace UnityEngine.EventSystems
     [AddComponentMenu("Event/Event System")]
     public class EventSystem : UIBehaviour
     {
-        private List<BaseInputModule> m_SystemInputModules = new List<BaseInputModule>();
+        private List<BaseInputModule> m_SystemInputModules = new List<BaseInputModule>();//挂载EventSystem物体上的输入模块组件，在输入模块OnEnable调用EventSystem.UpdateModules赋值
 
-        private BaseInputModule m_CurrentInputModule;//当前使用的输入模块
+        private BaseInputModule m_CurrentInputModule;//当前使用的输入模块,每帧根据m_SystemInputModules中inputModel可用性变换当前InputModel
 
-        public static EventSystem current { get; set; }//一个场景中存在一个
+        public static EventSystem current { get; set; }//OnEnable中判断，一个场景中存在一个
 
         [SerializeField]
         [FormerlySerializedAs("m_Selected")]
-        private GameObject m_FirstSelected;
+        private GameObject m_FirstSelected;//可以设定第一个选择的物体，。。在哪里调用？？todo
 
         [SerializeField]
-        private bool m_sendNavigationEvents = true;//发送导航事件
+        private bool m_sendNavigationEvents = true;//发送导航事件,键盘导航按键//todo 哪里用
 
         public bool sendNavigationEvents
         {
@@ -65,10 +65,10 @@ namespace UnityEngine.EventSystems
         protected EventSystem()
         {}
 
-        public void UpdateModules()
+        public void UpdateModules()//由inputModule.OnEnable执行
         {
             GetComponents(m_SystemInputModules);
-            for (int i = m_SystemInputModules.Count - 1; i >= 0; i--)
+            for (int i = m_SystemInputModules.Count - 1; i >= 0; i--)//遍历移除不可用inputModel
             {
                 if (m_SystemInputModules[i] && m_SystemInputModules[i].IsActive())
                     continue;
