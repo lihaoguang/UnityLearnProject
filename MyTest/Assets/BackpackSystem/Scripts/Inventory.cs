@@ -39,7 +39,7 @@ public class Inventory : MonoBehaviour
                 return false;
             }
         }
-        else if (item.Capacity > 1 && FindSameTypeAndValidSlot(item, out Slot slot))
+        else if (item.Capacity > 1 && FindSameIdAndValidSlot(item, out Slot slot))
         {
             slot.StoreItem(item);
         }
@@ -65,9 +65,9 @@ public class Inventory : MonoBehaviour
         return slot == null ? false : true;
     }
 
-    private bool FindSameTypeAndValidSlot(Item item, out Slot slot)
+    private bool FindSameIdAndValidSlot(Item item, out Slot slot)
     {//怎加条件 slot 是否满
-        slot = slotList.Find(s => s.transform.childCount >= 1 && s.ItemType == item.Type && !s.IsFilled);
+        slot = slotList.Find(s => s.transform.childCount >= 1 && s.ItemID == item.ID && !s.IsFilled);
         return slot == null ? false : true;
     }
 }

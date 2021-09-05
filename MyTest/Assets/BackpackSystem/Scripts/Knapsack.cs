@@ -8,7 +8,7 @@ public class Knapsack : Inventory
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            int id = Random.Range(2, 4);
+            int id = Random.Range(1, 4);
             Debug.Log(id);
             StoreItem(id);
         }

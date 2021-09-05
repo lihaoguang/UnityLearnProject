@@ -44,6 +44,7 @@ public class Item
     /// </summary>
     public string Sprite { get; set; }
 
+    public string TooltipsText => GetTooltiptText();
     /// <summary>
     /// Item构造函数
     /// </summary>
@@ -91,6 +92,10 @@ public class Item
         Epic,
         Legendary,
         Artifact
+    }
 
+    protected virtual string GetTooltiptText()
+    {
+        return Name; //TODO
     }
 }

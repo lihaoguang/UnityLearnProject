@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Slot : MonoBehaviour
+public class Slot : MonoBehaviour,IPointerEnterHandler,IPointerExitHandler
 {
     private ItemUI m_itemUI = null;
 
@@ -13,12 +14,25 @@ public class Slot : MonoBehaviour
         ResourcesLoader.Load(ResourcesLoader.PREFAB_UI_Item, transform).GetComponentInChildren<ItemUI>();
 
     public Item.ItemType ItemType => m_itemUI == null ? (Item.ItemType)(-1) : ItemUI.Item.Type;
+    public int ItemID => m_itemUI == null ? (-1) : ItemUI.Item.ID;
+
+
 
 
     /// <summary>
     /// Whether the current slot is fill
     /// </summary>
     public bool IsFilled => ItemUI.Amount >= ItemUI.Item.Capacity;
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        m_itemUI?.ShowTooltip();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        m_itemUI?.HideTooltip();
+    }
 
     /// <summary>
     /// Update itemUI information for existing items/Generated if no itemUI exists

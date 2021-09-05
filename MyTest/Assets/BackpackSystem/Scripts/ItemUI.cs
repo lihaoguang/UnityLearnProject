@@ -20,9 +20,21 @@ public class ItemUI : MonoBehaviour
     public void AddItem(Item item, uint amount = 1)
     {
         Amount += amount;
+        ItemInfoText.enabled = item.Capacity > 1;
+        if (ItemInfoText.enabled)
         ItemInfoText.text = Amount.ToString();
         if (Item != null) return;
         Item = item;
-        IconImage.sprite = ResourcesLoader.Load<Sprite>(item.Sprite);
+        IconImage.sprite = ResourcesLoader.Load<Sprite>(Item.Sprite);
+    }
+
+    public void ShowTooltip()
+    {
+        InventoryManager.Instance.ShowTooltip(Item.TooltipsText);
+    }
+
+    public void HideTooltip()
+    {
+        InventoryManager.Instance.HideTooltip();
     }
 }

@@ -36,10 +36,23 @@ public class InventoryManager : MonoBehaviour
     /// 解析物品Json文件
     /// </summary>
 
+    private Tooltip _tooltip = null;
+    private Tooltip Tooltip => _tooltip ?? (_tooltip = FindObjectOfType<Tooltip>());
     private void Start()
     {
         ParseItemJson();
     }
+
+    public void ShowTooltip(string content)
+    {
+        Tooltip.Show(content);
+    }
+
+    public void HideTooltip()
+    {
+        Tooltip.Hide();
+    }
+
     private void ParseItemJson()
     {
         itemList = new List<Item>();
@@ -108,11 +121,11 @@ public class InventoryManager : MonoBehaviour
     public string LoadJsonText(string fileName)
     {
         string url;
-        string result = null;
+        //string result = null;
         // string url = "file://" + Application.streamingAssetsPath + "/" + fileNmae;
 #if UNITY_EDITOR || UNITY_STANDALONE  //dataPath直接定位到Assets文件夹
         //  url = "file://" + Application.dataPath + "/StreamingAssets/Json/" + fileName;
-        url = Application.dataPath + "/StreamingAssets/Json/" + fileName;
+        url = Application.dataPath + "/StreamingAssets/InventoryJson/" + fileName;
         //否在如果在IOS下 #elif = else if()
 #elif UNITY_IPHONE
         url = "file://" + Application.dataPath + "/Raw/Json/"+ fileName;
