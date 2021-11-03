@@ -1,0 +1,8 @@
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\bin\Debug\UnityEngine.UI.dll
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\bin\Debug\UnityEngine.UI.pdb
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\bin\Debug\UnityEngine.dll
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\obj\Debug\UnityEngine.UI.csproj.AssemblyReference.cache
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\obj\Debug\UnityEngine.UI.csproj.CoreCompileInputs.cache
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\obj\Debug\UnityEngine.UI.csproj.CopyComplete
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\obj\Debug\UnityEngine.UI.dll
+D:\UnityLearnProject\Unity-Technologies-UI\UnityEngine.UI\obj\Debug\UnityEngine.UI.pdb

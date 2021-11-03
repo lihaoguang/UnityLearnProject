@@ -10,12 +10,25 @@ namespace UnityEngine.UI
     [DisallowMultipleComponent]
     /// <summary>
     ///   The Canvas Scaler component is used for controlling the overall scale and pixel density of UI elements in the Canvas. This scaling affects everything under the Canvas, including font sizes and image borders.
+<<<<<<< HEAD
     /// </summary>
     /// <remarks>
     /// For a Canvas set to 'Screen Space - Overlay' or 'Screen Space - Camera', the Canvas Scaler UI Scale Mode can be set to Constant Pixel Size, Scale With Screen Size, or Constant Physical Size.
     ///
     /// Using the Constant Pixel Size mode, positions and sizes of UI elements are specified in pixels on the screen. This is also the default functionality of the Canvas when no Canvas Scaler is attached. However, With the Scale Factor setting in the Canvas Scaler, a constant scaling can be applied to all UI elements in the Canvas.
     ///
+=======
+    ///     Canvas Scaler 组件是用于控制画布上UI元素的整体大小和像素密度。
+    ///  此缩放会影响画布下的所有内容,包括字体大小和图像边框。
+    /// </summary>
+    /// <remarks>
+    /// For a Canvas set to 'Screen Space - Overlay' or 'Screen Space - Camera', the Canvas Scaler UI Scale Mode can be set to Constant Pixel Size, Scale With Screen Size, or Constant Physical Size.
+    ///若画布设置为“ Screen Space - Overlay ”或“Screen Space - Camera”,
+    ///Canvas Scaler UI 缩放模式可以设置为 Constant Pixel Size, Scale With Screen Size,Constant Physical Size.
+    /// Using the Constant Pixel Size mode, positions and sizes of UI elements are specified in pixels on the screen. This is also the default functionality of the Canvas when no Canvas Scaler is attached. However, With the Scale Factor setting in the Canvas Scaler, a constant scaling can be applied to all UI elements in the Canvas.
+    ///使用像素大小模式不变,位置和大小的UI元素中指定像素在屏幕上。
+    ///这也是画布的默认功能当没有帆布定标器连接。然而,与比例因子设置画布定标器,一个常数比例可以应用于所有UI元素在画布上。
+>>>>>>> 28736a1 (feat: init ugui embedded project)
     /// Using the Scale With Screen Size mode, positions and sizes can be specified according to the pixels of a specified reference resolution. If the current screen resolution is larger than the reference resolution, the Canvas will keep having only the resolution of the reference resolution, but will scale up in order to fit the screen. If the current screen resolution is smaller than the reference resolution, the Canvas will similarly be scaled down to fit. If the current screen resolution has a different aspect ratio than the reference resolution, scaling each axis individually to fit the screen would result in non-uniform scaling, which is generally undesirable. Instead of this, the ReferenceResolution component will make the Canvas resolution deviate from the reference resolution in order to respect the aspect ratio of the screen. It is possible to control how this deviation should behave using the ::ref::screenMatchMode setting.
     ///
     /// Using the Constant Physical Size mode, positions and sizes of UI elements are specified in physical units, such as millimeters, points, or picas. This mode relies on the device reporting its screen DPI correctly. You can specify a fallback DPI to use for devices that do not report a DPI.

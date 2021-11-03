@@ -269,16 +269,29 @@ namespace UnityEngine.EventSystems
 
         public override void Process()
         {
+<<<<<<< HEAD
             if (!eventSystem.isFocused && ShouldIgnoreEventsOnNoFocus())
                 return;
 
+=======
+            //判断当前焦点
+            if (!eventSystem.isFocused && ShouldIgnoreEventsOnNoFocus())
+                return;
+            //为当前选择物体上的 IUpdateSelectedHandler 组件发送更新事件
+>>>>>>> 28736a1 (feat: init ugui embedded project)
             bool usedEvent = SendUpdateEventToSelectedObject();
 
             // case 1004066 - touch / mouse events should be processed before navigation events in case
             // they change the current selected gameobject and the submit button is a touch / mouse button.
+<<<<<<< HEAD
 
             // touch needs to take precedence because of the mouse emulation layer
             if (!ProcessTouchEvents() && input.mousePresent)
+=======
+            
+            // touch needs to take precedence because of the mouse emulation layer
+            if (!ProcessTouchEvents() && input.mousePresent)//处理触摸
+>>>>>>> 28736a1 (feat: init ugui embedded project)
                 ProcessMouseEvent();
 
             if (eventSystem.sendNavigationEvents)
@@ -293,6 +306,10 @@ namespace UnityEngine.EventSystems
 
         private bool ProcessTouchEvents()
         {
+<<<<<<< HEAD
+=======
+            //遍历当前所有 touch 数量
+>>>>>>> 28736a1 (feat: init ugui embedded project)
             for (int i = 0; i < input.touchCount; ++i)
             {
                 Touch touch = input.GetTouch(i);
@@ -302,8 +319,14 @@ namespace UnityEngine.EventSystems
 
                 bool released;
                 bool pressed;
+<<<<<<< HEAD
                 var pointer = GetTouchPointerEventData(touch, out pressed, out released);
 
+=======
+                PointerEventData pointer =
+                    GetTouchPointerEventData(touch, out pressed, out released);
+                //执行触摸按下流程
+>>>>>>> 28736a1 (feat: init ugui embedded project)
                 ProcessTouchPress(pointer, pressed, released);
 
                 if (!released)
@@ -333,13 +356,21 @@ namespace UnityEngine.EventSystems
             // PointerDown notification
             if (pressed)
             {
+<<<<<<< HEAD
+=======
+                //设置一下按下时 pointerEvent 的状态数据
+>>>>>>> 28736a1 (feat: init ugui embedded project)
                 pointerEvent.eligibleForClick = true;
                 pointerEvent.delta = Vector2.zero;
                 pointerEvent.dragging = false;
                 pointerEvent.useDragThreshold = true;
                 pointerEvent.pressPosition = pointerEvent.position;
                 pointerEvent.pointerPressRaycast = pointerEvent.pointerCurrentRaycast;
+<<<<<<< HEAD
 
+=======
+                //如果选择变化取消选中
+>>>>>>> 28736a1 (feat: init ugui embedded project)
                 DeselectIfSelectionChanged(currentOverGo, pointerEvent);
 
                 if (pointerEvent.pointerEnter != currentOverGo)

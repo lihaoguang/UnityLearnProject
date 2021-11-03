@@ -122,7 +122,7 @@ namespace UnityEngine.EventSystems
             SetSelectedGameObject(selected, baseEventDataCache);
         }
 
-        private static int RaycastComparer(RaycastResult lhs, RaycastResult rhs)
+        private static int RaycastComparer(RaycastResult lhs, RaycastResult rhs)//小于 负数，大于正数 等于 0
         {
             if (lhs.module != rhs.module)
             {

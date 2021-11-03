@@ -226,7 +226,7 @@ namespace UnityEngine.EventSystems
 
             // PointerDown notification
             if (pressed)
-            {
+            `{
                 pointerEvent.eligibleForClick = true;
                 pointerEvent.delta = Vector2.zero;
                 pointerEvent.dragging = false;

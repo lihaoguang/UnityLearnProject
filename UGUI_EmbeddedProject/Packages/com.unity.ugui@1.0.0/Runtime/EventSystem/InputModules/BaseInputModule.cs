@@ -190,7 +190,11 @@ namespace UnityEngine.EventSystems
         {
             // if we have no target / pointerEnter has been deleted
             // just send exit events to anything we are tracking
+<<<<<<< HEAD
             // then exit
+=======
+            // then exit //如果有一个为 null　执行所有　hover 的　pointerExitHandler
+>>>>>>> 28736a1 (feat: init ugui embedded project)
             if (newEnterTarget == null || currentPointerData.pointerEnter == null)
             {
                 var hoveredCount = currentPointerData.hovered.Count;

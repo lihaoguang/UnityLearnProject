@@ -10,7 +10,11 @@ namespace UnityEngine.EventSystems
     public abstract class PointerInputModule : BaseInputModule
     {
         /// <summary>
+<<<<<<< HEAD
         /// Id of the cached left mouse pointer event.
+=======
+        /// Id of the cached left mouse poProcessinter event.
+>>>>>>> 28736a1 (feat: init ugui embedded project)
         /// </summary>
         public const int kMouseLeftId = -1;
 
@@ -32,6 +36,10 @@ namespace UnityEngine.EventSystems
         protected Dictionary<int, PointerEventData> m_PointerData = new Dictionary<int, PointerEventData>();
 
         /// <summary>
+<<<<<<< HEAD
+=======
+        /// m_PointerData 维护这个字典管理输入的Touch ID /Mouse ID对应的 PointerEventData
+>>>>>>> 28736a1 (feat: init ugui embedded project)
         /// Search the cache for currently active pointers, return true if found.
         /// </summary>
         /// <param name="id">Touch ID</param>
@@ -61,6 +69,10 @@ namespace UnityEngine.EventSystems
         }
 
         /// <summary>
+<<<<<<< HEAD
+=======
+        /// 获取 Touch 的 按下和释放状态
+>>>>>>> 28736a1 (feat: init ugui embedded project)
         /// Given a touch populate the PointerEventData and return if we are pressed or released.
         /// </summary>
         /// <param name="input">Touch being processed</param>
@@ -73,27 +85,48 @@ namespace UnityEngine.EventSystems
             var created = GetPointerData(input.fingerId, out pointerData, true);
 
             pointerData.Reset();
+<<<<<<< HEAD
 
             pressed = created || (input.phase == TouchPhase.Began);
             released = (input.phase == TouchPhase.Canceled) || (input.phase == TouchPhase.Ended);
 
             if (created)
+=======
+            //如果这个 Touch 是新创建的（touch.id 之前没有过）或者 touch 状态是 began 视为 pressed 
+            pressed = created || (input.phase == TouchPhase.Began);
+            //如果这个 touch 状态为取消或者结束则 视为 released
+            released = (input.phase == TouchPhase.Canceled) || (input.phase == TouchPhase.Ended);
+
+            if (created) //如果是新创建的则记录，触摸时的  Position
+>>>>>>> 28736a1 (feat: init ugui embedded project)
                 pointerData.position = input.position;
 
             if (pressed)
                 pointerData.delta = Vector2.zero;
+<<<<<<< HEAD
             else
+=======
+            else //这里记录偏移量
+>>>>>>> 28736a1 (feat: init ugui embedded project)
                 pointerData.delta = input.position - pointerData.position;
 
             pointerData.position = input.position;
 
             pointerData.button = PointerEventData.InputButton.Left;
 
+<<<<<<< HEAD
             if (input.phase == TouchPhase.Canceled)
             {
                 pointerData.pointerCurrentRaycast = new RaycastResult();
             }
             else
+=======
+            if (input.phase == TouchPhase.Canceled)//如果状态取消则新 new 一个RaycastResult，感觉可以直接调用raycastResult.Clear()
+            {
+                pointerData.pointerCurrentRaycast = new RaycastResult();
+            }
+            else // 通过 eventSystem.RaycastAll 更新当前 touch 对应的 pointerData.pointerCurrentRaycast
+>>>>>>> 28736a1 (feat: init ugui embedded project)
             {
                 eventSystem.RaycastAll(pointerData, m_RaycastResultCache);
 
@@ -417,6 +450,10 @@ namespace UnityEngine.EventSystems
             // leave 'selection handling' up to the press event though.
             if (selectHandlerGO != eventSystem.currentSelectedGameObject)
                 eventSystem.SetSelectedGameObject(null, pointerEvent);
+<<<<<<< HEAD
+=======
+            //这里为什么传 null 不传 currentOverGo   ↑  可能仅仅就是为了有变化取消之前选择状态
+>>>>>>> 28736a1 (feat: init ugui embedded project)
         }
     }
 }
